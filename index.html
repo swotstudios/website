@@ -465,30 +465,88 @@
     .footer-social a:hover { color: var(--pink); }
     .footer-social svg { width: 19px; height: 19px; fill: currentColor; }
 
+    /* ─── LOGO SIZE OVERRIDE ─────────────────────────── */
+    .nav-logo svg { height: 42px !important; width: auto !important; }
+    footer .footer-inner > span svg { height: 32px !important; width: auto !important; }
+
+    /* ─── HERO PHOTO MOBILE ──────────────────────────── */
+    .hero-photo-mobile { display: none; }
+
+    /* ─── FORM SELECT ────────────────────────────────── */
+    .form-group select {
+      background: #111;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 13px 16px;
+      color: #fff;
+      font-family: var(--font);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      cursor: pointer;
+    }
+    .form-group select:focus { border-color: var(--pink); }
+    .form-group select option { background: #1a1a1a; color: #fff; }
+
     /* ─── RESPONSIVE ─────────────────────────────────── */
     @media (max-width: 768px) {
-      section { padding: 70px 0; }
+      section { padding: 64px 0; }
+      .container { padding: 0 20px; }
+
+      /* Navbar */
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
 
-      .hero-grid { grid-template-columns: 1fr; gap: 36px; }
-      h1.hero-headline { font-size: 34px; }
-      .hero-photo { aspect-ratio: 3/2; }
+      /* Hero */
+      #hero { padding: 110px 0 64px; min-height: auto; }
+      .hero-photo-mobile {
+        display: block;
+        width: 110px; height: 110px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 28px;
+        border: 2px solid var(--border);
+      }
+      .hero-photo-mobile img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+      }
+      h1.hero-headline { font-size: 32px; letter-spacing: -0.015em; }
+      .hero-sub { font-size: 15px; }
+      .hero-eyebrow { font-size: 12px; margin-bottom: 20px; }
+      .hero-ctas { flex-direction: column; align-items: center; gap: 12px; }
+      .hero-ctas .btn { width: 100%; text-align: center; }
 
+      /* Sezioni */
+      h2.section-title { font-size: 26px; }
+      .section-sub { font-size: 15px; }
       .problema-cards { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
       .servizi-grid { grid-template-columns: 1fr; }
-      .chisono-grid { grid-template-columns: 1fr; gap: 36px; }
-      .chisono-photo { aspect-ratio: 3/2; }
+      .chisono-grid { grid-template-columns: 1fr; gap: 32px; }
+      .chisono-photo { aspect-ratio: 4/3; }
+      .chisono-text h2 { font-size: 28px; }
       .testi-grid { grid-template-columns: 1fr; }
-      #contatti h2.section-title { font-size: 28px; }
+      #contatti h2.section-title { font-size: 26px; }
 
-      .footer-inner { flex-direction: column; text-align: center; }
+      /* Footer */
+      .footer-inner { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
     }
 
     @media (max-width: 480px) {
-      h1.hero-headline { font-size: 28px; }
-      h2.section-title { font-size: 24px; }
+      section { padding: 52px 0; }
+      #hero { padding: 96px 0 52px; }
+      h1.hero-headline { font-size: 27px; }
+      h2.section-title { font-size: 22px; }
+      .steps { grid-template-columns: 1fr; }
+      .hero-photo-mobile { width: 90px; height: 90px; }
     }
   </style>
 </head>
@@ -529,8 +587,11 @@
 <section id="hero">
   <div class="container">
     <div class="hero-inner">
+      <div class="hero-photo-mobile fade-up">
+        <img src="assets/Giulio.jpeg" alt="Giulio Boscaro" />
+      </div>
       <div class="hero-eyebrow fade-up">Advertising · Siti web · E-commerce</div>
-      <h1 class="hero-headline fade-up">Gestiamo il digitale per chi vuole <em>clienti,</em> non solo visibilità.</h1>
+      <h1 class="hero-headline fade-up">Gestiamo il digitale per chi vuole <em>risultati,</em> non solo visibilità.</h1>
       <p class="hero-sub fade-up">Lavoriamo con PMI e imprenditori che investono già online ma non vedono ritorni chiari. Campagne su Google, Meta e LinkedIn, siti che convertono, e-commerce che vendono — un unico partner, obiettivi misurabili.</p>
       <div class="hero-ctas fade-up">
         <a href="#contatti" class="btn btn-blue">Parliamoci</a>
@@ -729,9 +790,23 @@
         <span class="form-error" id="nome-err"></span>
       </div>
       <div class="form-group">
+        <label for="azienda">Azienda</label>
+        <input type="text" id="azienda" name="azienda" placeholder="Nome dell'azienda" />
+      </div>
+      <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="voi@email.com" />
         <span class="form-error" id="email-err"></span>
+      </div>
+      <div class="form-group">
+        <label for="servizio">Servizio di interesse</label>
+        <select id="servizio" name="servizio">
+          <option value="" disabled selected>— Selezionate un servizio —</option>
+          <option value="advertising">Advertising online</option>
+          <option value="sito">Sito web / Landing page</option>
+          <option value="ecommerce">E-commerce</option>
+          <option value="altro">Altro / Non so ancora</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="messaggio">Messaggio</label>
